@@ -7,7 +7,7 @@ import java.util.List;
 public class ParkingGarage {
     private List<ParkingLevel> parkingLevels;
 
-    public ParkingGarage(ParkingLevel[] pl) {
+    public ParkingGarage(ParkingLevel... pl) {
         parkingLevels = Arrays.asList(pl);
     }
 
