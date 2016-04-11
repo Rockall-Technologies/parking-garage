@@ -1,5 +1,5 @@
-* levels
-* spaces
+X levels
+X spaces
     * default level spaces
 * park
  * Small space

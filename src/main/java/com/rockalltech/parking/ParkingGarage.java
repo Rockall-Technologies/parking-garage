@@ -16,7 +16,7 @@ public class ParkingGarage {
     }
 
     public List<ParkingSpace> getSpaces() {
-        List<ParkingSpace> result = new ArrayList<ParkingSpace>();
+        List<ParkingSpace> result = new ArrayList<>();
         for (ParkingLevel parkingLevel : parkingLevels) {
             result.addAll(parkingLevel.getSpaces());
         }

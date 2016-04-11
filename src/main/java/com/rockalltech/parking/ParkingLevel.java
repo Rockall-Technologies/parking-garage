@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ParkingLevel {
 
-    private List<ParkingSpace> parkingSpaces = new ArrayList<ParkingSpace>();
+    private List<ParkingSpace> parkingSpaces = new ArrayList<>();
 
     public ParkingLevel(int small, int medium, int big) {
         parkingSpaces.addAll(spaces(small, Sizes.SMALL));
@@ -14,7 +14,7 @@ public class ParkingLevel {
     }
 
     private List<ParkingSpace> spaces(int small, Sizes size) {
-        List<ParkingSpace> result = new ArrayList<ParkingSpace>();
+        List<ParkingSpace> result = new ArrayList<>();
         for (int i = 0; i < small; i++) {
             result.add(new ParkingSpace(size));
         }
