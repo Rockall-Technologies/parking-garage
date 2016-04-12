@@ -19,4 +19,15 @@ public class ParkingSpace {
     public boolean empty() {
         return vehicle == null;
     }
+
+    public boolean isParked(Vehicle vehicle) {
+        return this.vehicle == vehicle;
+    }
+
+    public void unpark(Vehicle vehicle) {
+        if (this.vehicle != vehicle) {
+            return;
+        }
+        this.vehicle = null;
+    }
 }

@@ -4,8 +4,8 @@ X spaces
     * default level spaces
 X park
  X Small space
- * Medium space
- * Big space
+ X Medium space
+ X Big space
 * unpark
 * optimise
 * find? (we'll only need find to check optimise)?

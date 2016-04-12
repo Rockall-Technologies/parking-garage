@@ -55,4 +55,30 @@ public class ParkingGarageTest {
         ParkingSpace parkingSpace = parkingGarage.park(new Vehicle("small", Sizes.SMALL));
         assertEquals(Sizes.MEDIUM, parkingSpace.getSize());
     }
+
+    @Test
+    public void parkShouldReturnNullIfDoesntFit() throws Exception {
+        ParkingGarage parkingGarage = new ParkingGarage(new ParkingLevel(1, 0, 0));
+        ParkingSpace parkingSpace = parkingGarage.park(new Vehicle("medium", Sizes.MEDIUM));
+        assertEquals(null, parkingSpace);
+    }
+
+    @Test
+    public void findShouldReturnParkingSpace() throws Exception {
+        ParkingGarage parkingGarage = new ParkingGarage(new ParkingLevel(1, 0, 0));
+        Vehicle vehicle = new Vehicle("small", Sizes.SMALL);
+        ParkingSpace parkingSpace = parkingGarage.park(vehicle);
+        ParkingSpace found = parkingGarage.find(vehicle);
+        assertEquals(parkingSpace, found);
+    }
+
+    @Test
+    public void unparkShouldReleaseSpace() throws Exception {
+        ParkingGarage parkingGarage = new ParkingGarage(new ParkingLevel(0, 1, 0));
+        Vehicle small = new Vehicle("small", Sizes.SMALL);
+        parkingGarage.park(small);
+        assertEquals(0, parkingGarage.getEmptySpaces().size());
+        parkingGarage.unpark(small);
+        assertEquals(1, parkingGarage.getEmptySpaces().size());
+    }
 }
