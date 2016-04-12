@@ -1,9 +1,11 @@
 X levels
+    X support many levels
 X spaces
     * default level spaces
-* park
- * Small space
+X park
+ X Small space
  * Medium space
+ * Big space
 * unpark
 * optimise
 * find? (we'll only need find to check optimise)?

@@ -15,10 +15,25 @@ public class ParkingGarage {
         return parkingLevels;
     }
 
-    public List<ParkingSpace> getSpaces() {
+    public List<ParkingSpace> getEmptySpaces() {
         List<ParkingSpace> result = new ArrayList<>();
         for (ParkingLevel parkingLevel : parkingLevels) {
-            result.addAll(parkingLevel.getSpaces());
+            for (ParkingSpace parkingSpace : parkingLevel.getSpaces()) {
+                if (parkingSpace.empty()) {
+                    result.add(parkingSpace);
+                }
+            }
+        }
+        return result;
+    }
+
+    public ParkingSpace park(Vehicle vehicle) {
+        ParkingSpace result = null;
+        for (ParkingSpace space : getEmptySpaces()) {
+            if (vehicle.getSize().ordinal() <= space.getSize().ordinal()) {
+                space.park(vehicle);
+                result = space;
+            }
         }
         return result;
     }
