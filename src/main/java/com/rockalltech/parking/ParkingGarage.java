@@ -19,7 +19,7 @@ public class ParkingGarage {
         List<ParkingSpace> result = new ArrayList<>();
         for (ParkingLevel parkingLevel : parkingLevels) {
             for (ParkingSpace parkingSpace : parkingLevel.getSpaces()) {
-                    result.add(parkingSpace);
+                result.add(parkingSpace);
             }
         }
         return result;
@@ -27,11 +27,9 @@ public class ParkingGarage {
 
     public List<ParkingSpace> getEmptySpaces() {
         List<ParkingSpace> result = new ArrayList<>();
-        for (ParkingLevel parkingLevel : parkingLevels) {
-            for (ParkingSpace parkingSpace : parkingLevel.getSpaces()) {
-                if (parkingSpace.empty()) {
-                    result.add(parkingSpace);
-                }
+        for (ParkingSpace parkingSpace : getSpaces()) {
+            if (parkingSpace.empty()) {
+                result.add(parkingSpace);
             }
         }
         return result;
@@ -40,7 +38,7 @@ public class ParkingGarage {
     public ParkingSpace park(Vehicle vehicle) {
         ParkingSpace result = null;
         for (ParkingSpace space : getEmptySpaces()) {
-            if (vehicle.getSize().ordinal() <= space.getSize().ordinal()) {
+            if (space.canPark(vehicle)) {
                 space.park(vehicle);
                 result = space;
                 break;
@@ -62,6 +60,9 @@ public class ParkingGarage {
 
     public void unpark(Vehicle vehicle) {
         ParkingSpace parkingSpace = find(vehicle);
+        if (parkingSpace == null) {
+            throw new RuntimeException("Vehicle not parked here");
+        }
         parkingSpace.unpark(vehicle);
     }
 }

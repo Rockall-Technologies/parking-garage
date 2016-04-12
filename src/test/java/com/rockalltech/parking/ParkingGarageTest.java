@@ -81,4 +81,13 @@ public class ParkingGarageTest {
         parkingGarage.unpark(small);
         assertEquals(1, parkingGarage.getEmptySpaces().size());
     }
+
+    @Test(expected = RuntimeException.class)
+    public void unparkShouldFailIfVehicleNotParked() throws Exception {
+        ParkingGarage parkingGarage = new ParkingGarage(new ParkingLevel(0, 1, 0));
+        Vehicle small = new Vehicle("small", Sizes.SMALL);
+        parkingGarage.park(small);
+        assertEquals(0, parkingGarage.getEmptySpaces().size());
+        parkingGarage.unpark(new Vehicle("another-small", Sizes.SMALL));
+    }
 }

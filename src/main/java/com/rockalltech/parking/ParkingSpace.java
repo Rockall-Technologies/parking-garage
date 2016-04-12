@@ -16,18 +16,19 @@ public class ParkingSpace {
         this.vehicle = vehicle;
     }
 
-    public boolean empty() {
-        return vehicle == null;
+    public void unpark(Vehicle vehicle) {
+        this.vehicle = null;
     }
 
     public boolean isParked(Vehicle vehicle) {
         return this.vehicle == vehicle;
     }
 
-    public void unpark(Vehicle vehicle) {
-        if (this.vehicle != vehicle) {
-            return;
-        }
-        this.vehicle = null;
+    boolean canPark(Vehicle vehicle) {
+        return vehicle.getSize().ordinal() <= getSize().ordinal();
+    }
+
+    public boolean empty() {
+        return vehicle == null;
     }
 }
