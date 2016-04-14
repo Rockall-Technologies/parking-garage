@@ -64,5 +64,27 @@ public class ParkingGarage {
             throw new RuntimeException("Vehicle not parked here");
         }
         parkingSpace.unpark(vehicle);
+        optimiseSpace(parkingSpace);
     }
+
+    private void optimiseSpace(ParkingSpace parkingSpace) {
+        ParkingSpace unoptimal = findUnoptimalSpace(parkingSpace.getSize());
+        if (unoptimal != null) {
+            Vehicle move = unoptimal.getVehicle();
+            unoptimal.unpark(move);
+            parkingSpace.park(move);
+        }
+    }
+
+    private ParkingSpace findUnoptimalSpace(Sizes size) {
+        ParkingSpace result = null;
+        for (ParkingSpace parkingSpace : getSpaces()) {
+            if (parkingSpace.unoptimal(size)) {
+                result = parkingSpace;
+                break;
+            }
+        }
+        return result;
+    }
+
 }

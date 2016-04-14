@@ -31,4 +31,12 @@ public class ParkingSpace {
     public boolean empty() {
         return vehicle == null;
     }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    boolean unoptimal(Sizes size) {
+        return !empty() && getVehicle().getSize() == size && getSize().ordinal() > getVehicle().getSize().ordinal();
+    }
 }

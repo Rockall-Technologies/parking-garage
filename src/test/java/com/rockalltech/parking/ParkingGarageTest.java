@@ -75,10 +75,10 @@ public class ParkingGarageTest {
     @Test
     public void unparkShouldReleaseSpace() throws Exception {
         ParkingGarage parkingGarage = new ParkingGarage(new ParkingLevel(0, 1, 0));
-        Vehicle small = new Vehicle("small", Sizes.SMALL);
-        parkingGarage.park(small);
+        Vehicle vehicle = new Vehicle("small", Sizes.SMALL);
+        parkingGarage.park(vehicle);
         assertEquals(0, parkingGarage.getEmptySpaces().size());
-        parkingGarage.unpark(small);
+        parkingGarage.unpark(vehicle);
         assertEquals(1, parkingGarage.getEmptySpaces().size());
     }
 
@@ -89,5 +89,19 @@ public class ParkingGarageTest {
         parkingGarage.park(small);
         assertEquals(0, parkingGarage.getEmptySpaces().size());
         parkingGarage.unpark(new Vehicle("another-small", Sizes.SMALL));
+    }
+
+    @Test
+    public void unparkShouldOptimiseSpaces() {
+        ParkingGarage parkingGarage = new ParkingGarage(new ParkingLevel(1, 1, 0));
+        Vehicle vehicle1 = new Vehicle("small-1", Sizes.SMALL);
+        ParkingSpace smallParkingSpace = parkingGarage.park(vehicle1);
+        assertEquals(Sizes.SMALL, smallParkingSpace.getSize());
+        Vehicle vehicle2 = new Vehicle("small-2", Sizes.SMALL);
+        ParkingSpace mediumParkingSpace = parkingGarage.park(vehicle2);
+        assertEquals(Sizes.MEDIUM, mediumParkingSpace.getSize());
+        parkingGarage.unpark(vehicle1);
+        ParkingSpace found = parkingGarage.find(vehicle2);
+        assertEquals("Small car parking space", Sizes.SMALL, found.getSize());
     }
 }
