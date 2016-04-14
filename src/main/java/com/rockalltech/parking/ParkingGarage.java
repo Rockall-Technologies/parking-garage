@@ -5,39 +5,39 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ParkingGarage {
-    private List<ParkingLevel> parkingLevels;
+    private List<Level> levels;
 
-    public ParkingGarage(ParkingLevel... pl) {
-        parkingLevels = Arrays.asList(pl);
+    public ParkingGarage(Level... pl) {
+        levels = Arrays.asList(pl);
     }
 
-    public List<ParkingLevel> getLevels() {
-        return parkingLevels;
+    public List<Level> getLevels() {
+        return levels;
     }
 
-    private List<ParkingSpace> getSpaces() {
-        List<ParkingSpace> result = new ArrayList<>();
-        for (ParkingLevel parkingLevel : parkingLevels) {
-            for (ParkingSpace parkingSpace : parkingLevel.getSpaces()) {
-                result.add(parkingSpace);
+    private List<Space> getSpaces() {
+        List<Space> result = new ArrayList<>();
+        for (Level level : levels) {
+            for (Space space : level.getSpaces()) {
+                result.add(space);
             }
         }
         return result;
     }
 
-    public List<ParkingSpace> getEmptySpaces() {
-        List<ParkingSpace> result = new ArrayList<>();
-        for (ParkingSpace parkingSpace : getSpaces()) {
-            if (parkingSpace.empty()) {
-                result.add(parkingSpace);
+    public List<Space> getEmptySpaces() {
+        List<Space> result = new ArrayList<>();
+        for (Space space : getSpaces()) {
+            if (space.empty()) {
+                result.add(space);
             }
         }
         return result;
     }
 
-    public ParkingSpace park(Vehicle vehicle) {
-        ParkingSpace result = null;
-        for (ParkingSpace space : getEmptySpaces()) {
+    public Space park(Vehicle vehicle) {
+        Space result = null;
+        for (Space space : getEmptySpaces()) {
             if (space.canPark(vehicle)) {
                 space.park(vehicle);
                 result = space;
@@ -47,11 +47,11 @@ public class ParkingGarage {
         return result;
     }
 
-    public ParkingSpace find(Vehicle vehicle) {
-        ParkingSpace result = null;
-        for (ParkingSpace parkingSpace : getSpaces()) {
-            if (parkingSpace.isParked(vehicle)) {
-                result = parkingSpace;
+    public Space find(Vehicle vehicle) {
+        Space result = null;
+        for (Space space : getSpaces()) {
+            if (space.isParked(vehicle)) {
+                result = space;
                 break;
             }
         }
@@ -59,28 +59,28 @@ public class ParkingGarage {
     }
 
     public void unpark(Vehicle vehicle) {
-        ParkingSpace parkingSpace = find(vehicle);
-        if (parkingSpace == null) {
+        Space space = find(vehicle);
+        if (space == null) {
             throw new RuntimeException("Vehicle not parked here");
         }
-        parkingSpace.unpark(vehicle);
-        optimiseSpace(parkingSpace);
+        space.unpark(vehicle);
+        optimiseSpace(space);
     }
 
-    private void optimiseSpace(ParkingSpace parkingSpace) {
-        ParkingSpace unoptimal = findUnoptimalSpace(parkingSpace.getSize());
+    private void optimiseSpace(Space space) {
+        Space unoptimal = findUnoptimalSpace(space.getSize());
         if (unoptimal != null) {
             Vehicle move = unoptimal.getVehicle();
             unoptimal.unpark(move);
-            parkingSpace.park(move);
+            space.park(move);
         }
     }
 
-    private ParkingSpace findUnoptimalSpace(Sizes size) {
-        ParkingSpace result = null;
-        for (ParkingSpace parkingSpace : getSpaces()) {
-            if (parkingSpace.unoptimal(size)) {
-                result = parkingSpace;
+    private Space findUnoptimalSpace(Size size) {
+        Space result = null;
+        for (Space space : getSpaces()) {
+            if (space.unoptimal(size)) {
+                result = space;
                 break;
             }
         }

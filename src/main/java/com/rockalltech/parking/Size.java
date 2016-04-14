@@ -1,5 +1,5 @@
 package com.rockalltech.parking;
 
-public enum Sizes {
+public enum Size {
     SMALL, MEDIUM, BIG
 }

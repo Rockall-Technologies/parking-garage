@@ -1,14 +1,14 @@
 package com.rockalltech.parking;
 
-public class ParkingSpace {
-    private Sizes size;
+public class Space {
+    private Size size;
     private Vehicle vehicle;
 
-    public ParkingSpace(Sizes size) {
+    public Space(Size size) {
         this.size = size;
     }
 
-    public Sizes getSize() {
+    public Size getSize() {
         return size;
     }
 
@@ -36,7 +36,7 @@ public class ParkingSpace {
         return vehicle;
     }
 
-    boolean unoptimal(Sizes size) {
+    boolean unoptimal(Size size) {
         return !empty() && getVehicle().getSize() == size && getSize().ordinal() > getVehicle().getSize().ordinal();
     }
 }
