@@ -12,4 +12,9 @@ public class Vehicle {
     public Size getSize() {
         return size;
     }
+
+    void move(Space unoptimal, Space current) {
+        unoptimal.unpark(this);
+        current.park(this);
+    }
 }

@@ -47,6 +47,15 @@ public class ParkingGarage {
         return result;
     }
 
+    public void unpark(Vehicle vehicle) {
+        Space space = find(vehicle);
+        if (space == null) {
+            throw new RuntimeException("Vehicle not parked here");
+        }
+        space.unpark(vehicle);
+        optimiseSpace(space);
+    }
+
     public Space find(Vehicle vehicle) {
         Space result = null;
         for (Space space : getSpaces()) {
@@ -58,21 +67,11 @@ public class ParkingGarage {
         return result;
     }
 
-    public void unpark(Vehicle vehicle) {
-        Space space = find(vehicle);
-        if (space == null) {
-            throw new RuntimeException("Vehicle not parked here");
-        }
-        space.unpark(vehicle);
-        optimiseSpace(space);
-    }
-
-    private void optimiseSpace(Space space) {
-        Space unoptimal = findUnoptimalSpace(space.getSize());
+    private void optimiseSpace(Space current) {
+        Space unoptimal = findUnoptimalSpace(current.getSize());
         if (unoptimal != null) {
-            Vehicle move = unoptimal.getVehicle();
-            unoptimal.unpark(move);
-            space.park(move);
+            Vehicle vehicle = unoptimal.getVehicle();
+            vehicle.move(unoptimal, current);
         }
     }
 
